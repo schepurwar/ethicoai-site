@@ -12,49 +12,51 @@
     --card-bg: #262626;
   }
 
-/* Live Ticker Styling */
+/* Seamless Continuous Ticker */
 .ticker-wrap {
   position: fixed;
   top: 0;
   width: 100%;
   overflow: hidden;
   height: 35px;
-  background-color: rgba(0, 0, 0, 0.7); /* Chic transparent black */
-  backdrop-filter: blur(5px); /* Modern blur effect */
-  border-bottom: 1px solid var(--ethico-green);
-  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #76b852;
+  z-index: 9999;
+  display: flex;
 }
 
 .ticker {
-  display: inline-block;
-  height: 35px;
-  line-height: 35px;
+  display: flex;
   white-space: nowrap;
-  padding-right: 100%;
-  box-sizing: content-box;
-  animation: ticker-animation 30s linear infinite;
+  animation: scroll-seamless 35s linear infinite; /* Adjust time for speed */
 }
 
 .ticker-item {
-  display: inline-block;
-  padding: 0 30px;
-  font-size: 0.85rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0 40px; /* Space between items */
   color: white;
+  font-size: 0.85rem;
+  font-family: monospace; /* Looks more like a stock ticker */
 }
 
 .ticker-item span {
-  color: var(--ethico-green); /* Price color */
-  margin-left: 5px;
+  color: #76b852;
+  font-weight: bold;
+  margin-left: 8px;
 }
 
-@keyframes ticker-animation {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
+/* The magic animation: we move the double-width list by exactly half */
+@keyframes scroll-seamless {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
 }
 
-/* Adjust main content so it doesn't hide under the ticker */
-#main-view { margin-top: 50px; }
+/* Pause on hover so people can read a specific price */
+.ticker-wrap:hover .ticker {
+  animation-play-state: paused;
+}
 
   
 
@@ -146,16 +148,21 @@
 </style>
 </head>
 <body>
-
-  <div class="ticker-wrap">
+<div class="ticker-wrap">
   <div class="ticker">
-    <div class="ticker-item">🥚 LIVE EGG (NECC): <span>₹5.41/pc</span></div>
-    <div class="ticker-item">🌾 WHEAT (Mandi): <span>₹2,401/qtl</span></div>
-    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150/qtl</span></div>
-    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702/qtl</span></div>
-    <div class="ticker-item">🥛 GOAT MILK (EthiCo): <span>Premium Grade</span></div>
-    <div class="ticker-item">🥚 LIVE EGG (NECC): <span>₹5.41/pc</span></div>
-    <div class="ticker-item">🌾 WHEAT (Mandi): <span>₹2,401/qtl</span></div>
+    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41</span></div>
+    <div class="ticker-item">🌾 WHEAT (Mandi): <span>₹2,401</span></div>
+    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150</span></div>
+    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702</span></div>
+    <div class="ticker-item">🥩 BROILER: <span>₹112/kg</span></div>
+    <div class="ticker-item">🥛 GOAT MILK: <span>A2 GRADE</span></div>
+    
+    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41</span></div>
+    <div class="ticker-item">🌾 WHEAT (Mandi): <span>₹2,401</span></div>
+    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150</span></div>
+    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702</span></div>
+    <div class="ticker-item">🥩 BROILER: <span>₹112/kg</span></div>
+    <div class="ticker-item">🥛 GOAT MILK: <span>A2 GRADE</span></div>
   </div>
 </div>
 
