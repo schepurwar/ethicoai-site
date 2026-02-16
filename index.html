@@ -4,58 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  :root {
-    --ethico-green: #76b852;
-    --durgi-orange: #e67e22;
-    --budo-blue: #3498db;
-    --bg-dark: #1a1a1a; /* Matches GoDaddy dark themes better */
-    --card-bg: #262626;
-  }
+ :root {
+  --ethico-green: #76b852;
+  --gold-glow: #f39c12; /* Modern Golden Amber */
+  --bg-dark: #0f0d08;   /* Deep charcoal with a hint of gold */
+}
 
-/* Seamless Continuous Ticker */
+body {
+  margin: 0;
+  padding: 0;
+  /* Chic Golden Radial Gradient */
+  background: radial-gradient(circle at top right, #2c2412, var(--bg-dark) 60%),
+              radial-gradient(circle at bottom left, #1a150a, var(--bg-dark));
+  background-attachment: fixed;
+  color: #f1f1f1;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* Glassmorphism Product Cards */
+.cat-card, .product-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(243, 156, 18, 0.15); /* Subtle gold border */
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.cat-card:hover {
+  border-color: var(--gold-glow);
+  box-shadow: 0 0 20px rgba(243, 156, 18, 0.2);
+  transform: translateY(-8px);
+}
+
+/* Ticker with Golden Tint */
 .ticker-wrap {
   position: fixed;
   top: 0;
   width: 100%;
   overflow: hidden;
-  height: 35px;
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #76b852;
+  height: 40px;
+  background-color: rgba(15, 13, 8, 0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(243, 156, 18, 0.3);
   z-index: 9999;
-  display: flex;
-}
-
-.ticker {
-  display: flex;
-  white-space: nowrap;
-  animation: scroll-seamless 35s linear infinite; /* Adjust time for speed */
-}
-
-.ticker-item {
-  display: flex;
-  align-items: center;
-  padding: 0 40px; /* Space between items */
-  color: white;
-  font-size: 0.85rem;
-  font-family: monospace; /* Looks more like a stock ticker */
 }
 
 .ticker-item span {
-  color: #76b852;
-  font-weight: bold;
-  margin-left: 8px;
+  color: var(--gold-glow); /* Numbers in Gold */
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 8px rgba(243, 156, 18, 0.4);
 }
 
-/* The magic animation: we move the double-width list by exactly half */
-@keyframes scroll-seamless {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } 
-}
-
-/* Pause on hover so people can read a specific price */
-.ticker-wrap:hover .ticker {
-  animation-play-state: paused;
+h1, h2 {
+  background: linear-gradient(to right, #ffffff, #f39c12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
   
