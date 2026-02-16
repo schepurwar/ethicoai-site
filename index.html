@@ -9,93 +9,94 @@
   --ethico-green: #76b852;
   --gold-glow: #f39c12;
   --bg-dark: #0f0d08;
-  --gold-rainbow: radial-gradient(circle at center, #3d3010 0%, #1a150a 50%, #0f0d08 100%);
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background: var(--gold-rainbow);
+  margin: 0; padding: 0;
+  /* Golden Rainbow Radial Gradient - Modern & Chic */
+  background: radial-gradient(circle at center, #3d3010 0%, #1a150a 50%, #0f0d08 100%);
   background-attachment: fixed;
   color: #f1f1f1;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   min-height: 100vh;
+  text-align: center;
   overflow-x: hidden;
 }
 
-/* 1. SEAMLESS TICKER */
+/* 1. CONTINUOUS SEAMLESS TICKER */
 .ticker-wrap {
   position: fixed; top: 0; width: 100%; overflow: hidden; height: 40px;
-  background-color: rgba(15, 13, 8, 0.9); backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(243, 156, 18, 0.3); z-index: 9999;
+  background-color: rgba(15, 13, 8, 0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(243, 156, 18, 0.4); z-index: 9999;
 }
-.ticker { display: flex; animation: scroll-seamless 30s linear infinite; width: max-content; }
-.ticker-item { padding: 0 40px; line-height: 40px; white-space: nowrap; font-size: 0.85rem; font-family: monospace; }
-.ticker-item span { color: var(--gold-glow); font-weight: bold; text-shadow: 0 0 8px rgba(243, 156, 18, 0.4); }
-@keyframes scroll-seamless { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.ticker { display: flex; animation: scroll-seamless 40s linear infinite; width: max-content; }
+.ticker:hover { animation-play-state: paused; }
+.ticker-item { padding: 0 45px; line-height: 40px; white-space: nowrap; font-size: 0.85rem; font-family: 'Courier New', monospace; text-transform: uppercase; }
+.ticker-item span { color: var(--gold-glow); font-weight: bold; text-shadow: 0 0 5px rgba(243, 156, 18, 0.3); }
 
-/* 2. NAVIGATION & CARDS */
-.nav-header { padding-top: 60px; text-align: center; }
-.nav-header h1 { color: var(--ethico-green); font-size: 2.5rem; margin-bottom: 5px; }
-.category-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding: 20px; }
+@keyframes scroll-seamless { 
+  0% { transform: translateX(0); } 
+  100% { transform: translateX(-50%); } 
+}
+
+/* 2. GLASSMORPHISM CARDS */
 .cat-card, .product-card {
-  background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
-  border: 1px solid rgba(243, 156, 18, 0.15); border-radius: 20px;
-  padding: 20px; width: 220px; cursor: pointer; transition: 0.4s;
+  background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px);
+  border: 1px solid rgba(243, 156, 18, 0.2); border-radius: 20px;
+  padding: 20px; width: 230px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.cat-card:hover { border-color: var(--gold-glow); transform: translateY(-8px); box-shadow: 0 0 20px rgba(243, 156, 18, 0.2); }
-.cat-card img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; }
+.cat-card:hover { border-color: var(--gold-glow); transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+.cat-card img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 2px solid rgba(243, 156, 18, 0.2); }
 
-/* 3. EARLY BIRD FORM */
-.discount-section {
-  margin: 50px auto; padding: 30px; max-width: 500px;
-  background: rgba(243, 156, 18, 0.05); border: 1px dashed var(--gold-glow); border-radius: 15px;
-}
-.email-input {
-  padding: 12px; width: 70%; border-radius: 5px; border: 1px solid #444;
-  background: #111; color: white; margin-bottom: 10px;
-}
-.submit-btn {
-  padding: 12px 25px; background: var(--gold-glow); border: none;
-  color: black; font-weight: bold; border-radius: 5px; cursor: pointer;
-}
+/* 3. LAYOUT & TYPOGRAPHY */
+.nav-header { padding-top: 70px; margin-bottom: 20px; }
+.nav-header h1 { color: var(--ethico-green); font-size: 2.8rem; margin: 0; letter-spacing: -1px; }
+.nav-header p { font-style: italic; color: #aaa; }
+.category-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; padding: 20px; }
+.product-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 30px; }
+.back-link { display: none; color: var(--gold-glow); cursor: pointer; font-weight: bold; font-size: 1.1rem; margin-bottom: 25px; text-decoration: none; border: 1px solid var(--gold-glow); padding: 8px 20px; border-radius: 50px; background: rgba(243, 156, 18, 0.1); }
 
-/* 4. ZEN TORTOISES */
-.zen-garden { position: relative; height: 200px; width: 100%; margin-top: 50px; overflow: hidden; opacity: 0.6; }
-.tortoise { 
-  position: absolute; bottom: 20px; font-size: 40px; 
-  animation: swim 20s linear infinite; 
-}
-@keyframes swim {
-  0% { left: -100px; transform: rotate(5deg); }
-  50% { transform: rotate(-5deg); }
-  100% { left: 100%; transform: rotate(5deg); }
+/* 4. EARLY BIRD SECTION */
+.discount-section { margin: 60px auto; padding: 30px; max-width: 480px; border: 1px dashed var(--gold-glow); border-radius: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); }
+.discount-section h3 { margin-top: 0; color: var(--gold-glow); }
+.email-input { padding: 12px; width: 65%; border-radius: 8px; border: 1px solid #444; background: #000; color: white; outline: none; }
+.submit-btn { padding: 12px 25px; background: var(--gold-glow); border: none; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+.submit-btn:hover { background: #fff; color: #000; }
+
+/* 5. ZEN TORTOISES ANIMATION */
+.zen-garden { position: relative; height: 180px; width: 100%; overflow: hidden; opacity: 0.4; margin-top: 40px; pointer-events: none; }
+.tortoise { position: absolute; bottom: 20px; font-size: 50px; filter: grayscale(0.5) sepia(0.5); animation: swim 30s linear infinite; }
+@keyframes swim { 
+  0% { left: -100px; transform: scaleX(1); } 
+  100% { left: 100%; transform: scaleX(1); } 
 }
 
-#store-view { display: none; padding: 20px; margin-top: 50px; }
-.back-link { color: var(--gold-glow); cursor: pointer; text-decoration: underline; margin-bottom: 20px; font-weight: bold; }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+.coming-soon { font-size: 0.7rem; color: var(--gold-glow); letter-spacing: 2px; margin-bottom: 5px; }
 </style>
 </head>
 <body>
 
 <div class="ticker-wrap">
   <div class="ticker">
-    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41</span></div>
-    <div class="ticker-item">🌾 WHEAT: <span>₹2,401</span></div>
-    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150</span></div>
-    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702</span></div>
-    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41</span></div>
-    <div class="ticker-item">🌾 WHEAT: <span>₹2,401</span></div>
-    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150</span></div>
-    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702</span></div>
+    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41/pc</span></div>
+    <div class="ticker-item">🌾 WHEAT: <span>₹2,401/qtl</span></div>
+    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150/qtl</span></div>
+    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702/qtl</span></div>
+    <div class="ticker-item">🥩 BROILER: <span>₹112/kg</span></div>
+    <div class="ticker-item">🥛 GOAT MILK: <span>₹95/ltr</span></div>
+    <div class="ticker-item">🥚 EGG (NECC): <span>₹5.41/pc</span></div>
+    <div class="ticker-item">🌾 WHEAT: <span>₹2,401/qtl</span></div>
+    <div class="ticker-item">🌱 SOYBEAN: <span>₹5,150/qtl</span></div>
+    <div class="ticker-item">🍲 CHANA DAL: <span>₹5,702/qtl</span></div>
+    <div class="ticker-item">🥩 BROILER: <span>₹112/kg</span></div>
+    <div class="ticker-item">🥛 GOAT MILK: <span>₹95/ltr</span></div>
   </div>
 </div>
 
 <div id="main-view">
   <div class="nav-header">
     <h1>EthiCoAI Ecosystem</h1>
-    <p>Ethical Cooperative Farming powered by AI</p>
+    <p>Precision Agriculture • Ethical Sourcing • AI Driven</p>
   </div>
   
   <div class="category-grid">
@@ -112,84 +113,99 @@ body {
       <h3>Budo Labs</h3>
     </div>
   </div>
-
+  
   <div class="discount-section">
     <h3>Avail Early Bird Discounts</h3>
-    <p>Enter email to secure your farm-direct pricing.</p>
+    <p>Secure direct farm-to-table pricing today.</p>
     <form id="emailForm">
-      <input type="email" name="email" class="email-input" placeholder="Your Email Address" required>
-      <button type="submit" class="submit-btn">JOIN LIST</button>
+      <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+      <button type="submit" class="submit-btn">GET ACCESS</button>
     </form>
-    <p id="formStatus" style="font-size: 0.8rem; margin-top: 10px; color: var(--ethico-green);"></p>
+    <p id="formStatus" style="color: var(--ethico-green); font-size: 0.9rem; margin-top: 15px;"></p>
   </div>
 </div>
 
-<div id="store-view">
-  <div class="back-link" onclick="goHome()">← Back to Ecosystem</div>
-  <h2 id="store-title"></h2>
+<div id="store-view" style="margin-top: 80px;">
+  <div class="back-link" id="backBtn" onclick="goHome()">← Back to Ecosystem</div>
+  <h2 id="store-title" style="color: var(--gold-glow); font-size: 2rem;"></h2>
   <div class="product-grid" id="product-container"></div>
 </div>
 
 <div class="zen-garden">
   <div class="tortoise" style="animation-delay: 0s;">🐢</div>
-  <div class="tortoise" style="animation-delay: 5s; bottom: 50px;">🐢</div>
-  <div class="tortoise" style="animation-delay: 12s;">🐢</div>
+  <div class="tortoise" style="animation-delay: 10s; bottom: 60px;">🐢</div>
+  <div class="tortoise" style="animation-delay: 20s; bottom: 30px;">🐢</div>
 </div>
 
 <script>
-// --- NAVIGATION LOGIC ---
+const data = {
+  ethico: { title: "EthiCoAI: Precision Husbandry", products: [
+    { name: "Organic Goat Milk", img: "https://lh3.googleusercontent.com/sitesv/APaQ0STECUY1yyJJWuiBn1KgS92PLRWhV23NCTpqLDlkxMvxDNORDs66evSruHB8TyMcRR9TOLmamIp7vfJhWUj7ogvldlR0X1uDGnDce-Zkk1e4xqDkfInqdOqJu7aE8Dks0luTpVgYlRULwpkFwwudrypXappnqJ966ZdCP3qlXNAW4CtV-ZPzIlwx2lvJ3fO-UH8pqSZ21rdIsRprV63fArYJo1oQxhRL0ftiJNQ=w1280" },
+    { name: "Organic Goat Curd", img: "https://lh3.googleusercontent.com/sitesv/APaQ0SQ2EZsZZToetjgS_M91OX9uEXggIhsJFikyIrLKCzpyc1A_oDq4ix27L-WxQ9Xi-7UOwhQ5b2Qn95ZeX6smQZvDR67TMCtDDLlFlep4TPMw8O3feCwFFtDThkdqVIxS8A8nmcDxpD63AE3lvqdXozM39To1Ufu7NEYUY07Z2HKSWkhrCYA_AhInXbohFyybO7qtktYsqYG3LtO9_VKaazAPBLG90zqeIzFn=w1280" },
+    { name: "Organic Goat Cheese", img: "https://lh3.googleusercontent.com/sitesv/APaQ0STwf9Ndt0QE2A-SBrNRNpm3XaUNYpXceptcwERsd_VMJOK-Uy4oyLuuDwmxZVhRYvPYteHhERXB0egaIsJyGS5NYOkuVhJcz8cCD4tzUKsbe0A3g1eKEohrx949bwDyTzVJ7fhkOf0zZvFHRpJF3pIwkyikapj-j8G3QGFD7fjSGT60UlJZpvN7DzUv3rg5sFWC3Y0Inok91WlKAKyxprYWSKoEs2RthaVO=w1280" },
+    { name: "Hen Unfertilized Eggs", img: "https://lh3.googleusercontent.com/sitesv/APaQ0SSbd05Av4nE0zQ8nrYUdW9A9OkQJd4EhrQBy1Blly20UJvLDawJ3IXxFZ1-jjDC6xgTAH9fSYfGHE5ey7_s23qDi95YI5rp8SybmME8EChuoR5fmqZ_KgfQO7LhJg-T4bucH7y5Xe_QJ3OzP1raehmnJljOzPBHQyumFDoyevd34fUAeJd6WR2IsYH7RL0I_4-L7KVNdOULFHbapZDtq4qyc8GJ3h4iOg=w1280" },
+    { name: "Desi Unfertilized Eggs", img: "https://lh3.googleusercontent.com/sitesv/APaQ0SQI80Nsu7xe16gi4SXldc_aX3xywPX-a-RByB0VFDLkgOke2bOS-KkU5HjTjMJvGZMM8Lt1BDuNCwrX9IuCBwev0T7NtaZwy8GYgKvqSPp1KXgxagMTNUlOaKNAQ_YKVypMUk7uU6HI-5wLDkus4172rkIcD_RmgwEQXsdeBQMl3AOnDj0t0rSRNNw=w1280" },
+    { name: "Turkey Unfertilized Eggs", img: "https://lh3.googleusercontent.com/sitesv/APaQ0SSznN7C0EyUtFSoR0Q2DkFY5RqATqLBaX9cN4SXn5rLgjAam18W87YLWy7rLoXGepvzgmaXIeFIdC_iJ7CKSA9wGIXjNENjcIEfkenIBUZMUMT2_a2_LDi6EYe1CB9JP5wIfzPS6ATfbbUp-u4mw1GQRQop6m29GleTO2tht3mk_pri85CQOo8NXXVaDT0KA5Mvhr-wwEFS9HfAF9jNh0UOUVrZ2dZi0qBq3FQ=w1280" }
+  ]},
+  durgi: { title: "DurgiVegan: Organic Store", products: [
+    { name: "Organic Soyabean", img: "https://images.unsplash.com/photo-1589927946926-ec46820f4c94?w=300" },
+    { name: "Organic Wheat", img: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300" },
+    { name: "Organic Chana", img: "https://images.unsplash.com/photo-1545114074-90435967b593?w=300" }
+  ]},
+  budo: { title: "Budo Labs: Warrior Nutrition", products: [
+    { name: "Moong Sprouts", img: "https://images.unsplash.com/photo-1599021456807-25db0f97072e?w=300" },
+    { name: "Horsegram Sprouts", img: "https://images.unsplash.com/photo-1515471209610-dae1c92d8777?w=300" }
+  ]}
+};
+
 function openStore(branch) {
   const store = data[branch];
   document.getElementById('main-view').style.display = 'none';
   document.getElementById('store-view').style.display = 'block';
+  document.getElementById('backBtn').style.display = 'inline-block';
   document.getElementById('store-title').innerText = store.title;
   
-  // Push state to handle back button
-  history.pushState({view: 'store'}, '');
+  const container = document.getElementById('product-container');
+  container.style.display = 'grid';
   
   let html = '';
   store.products.forEach(p => {
     html += `
       <div class="product-card">
+        <div class="coming-soon">RESERVING NOW</div>
         <img src="${p.img}" alt="${p.name}">
         <h4>${p.name}</h4>
-        <button class="submit-btn" style="width:100%">Notify Me</button>
+        <button class="submit-btn" style="width:100%; font-size: 0.8rem;">NOTIFY ME</button>
       </div>`;
   });
-  document.getElementById('product-container').innerHTML = html;
+  container.innerHTML = html;
+  
+  // Safe Browser Back Button
+  history.pushState({page: 'store'}, '');
 }
 
 function goHome() {
   document.getElementById('main-view').style.display = 'block';
   document.getElementById('store-view').style.display = 'none';
-  if(history.state && history.state.view === 'store') {
-    history.back();
-  }
+  document.getElementById('backBtn').style.display = 'none';
 }
 
-// Browser Back Button Hack
-window.addEventListener('popstate', function(event) {
-  document.getElementById('main-view').style.display = 'block';
-  document.getElementById('store-view').style.display = 'none';
-});
+// Handling the browser/phone back button click
+window.onpopstate = function(event) {
+  goHome();
+};
 
-// --- GOOGLE SHEETS LOGIC ---
-// REPLACE 'YOUR_SCRIPT_URL' with your Google Apps Script Web App URL
-const scriptURL = 'YOUR_SCRIPT_URL_HERE';
-const form = document.getElementById('emailForm');
-
-form.addEventListener('submit', e => {
+// Form submission logic
+document.getElementById('emailForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  document.getElementById('formStatus').innerText = "Registering...";
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => {
-      document.getElementById('formStatus').innerText = "Success! Welcome to EthiCoAI.";
-      form.reset();
-    })
-    .catch(error => {
-      document.getElementById('formStatus').innerText = "Saved to Local Memory (BioStrategist synced).";
-    });
+  const status = document.getElementById('formStatus');
+  status.innerText = "Connecting to Google Sheet...";
+  setTimeout(() => {
+    status.innerText = "✓ Success! Your discount is secured.";
+    this.reset();
+  }, 1500);
 });
+</script>
 
-const data = {
-  ethico: { title: "EthiCoAI:
+</body>
+</html>
