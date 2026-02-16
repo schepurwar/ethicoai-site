@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --ethico-green: #76b852;
+    --durgi-orange: #e67e22;
+    --budo-blue: #3498db;
+    --bg-dark: #1a1a1a; /* Matches GoDaddy dark themes better */
+    --card-bg: #262626;
+  }
+
+  body {
+    background-color: transparent; /* Allows GoDaddy's background to show through */
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .nav-header h1 { color: var(--ethico-green); font-size: 2rem; margin-bottom: 5px; }
+  .nav-header p { color: #aaa; margin-bottom: 30px; }
+
+  /* Category Selection */
+  .category-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .cat-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 20px;
+    width: 220px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .cat-card:hover { border-color: var(--ethico-green); transform: translateY(-5px); }
+  
+  .cat-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  /* Product Grid */
+  .product-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px 0;
+  }
+
+  .product-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .coming-soon { color: #888; font-size: 0.7rem; margin: 10px 0 5px; text-transform: uppercase; }
+
+  .notify-btn {
+    background: var(--ethico-green);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: auto;
+  }
+
+  .back-link {
+    display: none;
+    color: var(--ethico-green);
+    cursor: pointer;
+    text-decoration: underline;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div id="main-view">
+  <div class="nav-header">
+    <h1>EthiCoAI Ecosystem</h1>
+    <p>Ethical Cooperative Farming powered by AI</p>
+  </div>
+  <div class="category-grid">
+    <div class="cat-card" onclick="openStore('ethico')">
+      <img src="https://i.ibb.co/M9S9XmS/ethicoai-logo.jpg" alt="EthiCoAI">
+      <h3>EthiCoAI</h3>
+    </div>
+    <div class="cat-card" onclick="openStore('durgi')">
+      <img src="https://i.ibb.co/v44m8Xq/durgivegan2.jpg" alt="DurgiVegan">
+      <h3>DurgiVegan</h3>
+    </div>
+    <div class="cat-card" onclick="openStore('budo')">
+      <img src="https://i.ibb.co/GxcpY57/budolabs-finallogo3.jpg" alt="Budo Labs">
+      <h3>Budo Labs</h3>
+    </div>
+  </div>
+</div>
+
+<div id="store-view">
+  <div class="back-link" id="backBtn" onclick="goHome()">← Back to Ecosystem</div>
+  <h2 id="store-title"></h2>
+  <div class="product-grid" id="product-container"></div>
+</div>
+
+<script>
+const data = {
+  ethico: {
+    title: "EthiCoAI: Precision Husbandry",
+    products: [
+      { name: "Goat Milk", img: "https://images.unsplash.com/photo-1550583760-d8cc62241f2b?w=300" },
+      { name: "Goat Curd", img: "https://images.unsplash.com/photo-1485962391945-447a329ed810?w=300" },
+      { name: "Goat Cheese", img: "https://images.unsplash.com/photo-1452195100486-9cc805987862?w=300" },
+      { name: "Unfertilized Broiler Eggs", img: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=300" },
+      { name: "Desi Unfertilized Eggs", img: "https://images.unsplash.com/photo-1569254994521-ddb542a78eb3?w=300" },
+      { name: "Turkey Unfertilized Eggs", img: "https://images.unsplash.com/photo-1627748446903-8822080a2732?w=300" }
+    ]
+  },
+  durgi: {
+    title: "DurgiVegan: Organic Store",
+    products: [
+      { name: "Organic Soyabean", img: "https://images.unsplash.com/photo-1589927946926-ec46820f4c94?w=300" },
+      { name: "Organic Wheat", img: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300" },
+      { name: "Organic Chana", img: "https://images.unsplash.com/photo-1545114074-90435967b593?w=300" },
+      { name: "Organic Soya Tofu", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300" },
+      { name: "Organic Chana Tofu", img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?w=300" },
+      { name: "Tofu Cheese (Soy)", img: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=300" },
+      { name: "Tofu Cheese (Chana)", img: "https://images.unsplash.com/photo-1505394033323-424ebb441f23?w=300" }
+    ]
+  },
+  budo: {
+    title: "Budo Labs: Warrior Nutrition",
+    products: [
+      { name: "Moong Sprouts", img: "https://images.unsplash.com/photo-1599021456807-25db0f97072e?w=300" },
+      { name: "Horsegram Sprouts", img: "https://images.unsplash.com/photo-1515471209610-dae1c92d8777?w=300" },
+      { name: "Fenugreek Sprouts", img: "https://images.unsplash.com/photo-1588710920403-d602167d3025?w=300" },
+      { name: "Moth Sprouts", img: "https://images.unsplash.com/photo-1508013861974-9f6347163835?w=300" },
+      { name: "Lobia Sprouts", img: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=300" }
+    ]
+  }
+};
+
+function openStore(branch) {
+  const store = data[branch];
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('backBtn').style.display = 'block';
+  document.getElementById('store-title').innerText = store.title;
+  const container = document.getElementById('product-container');
+  container.style.display = 'grid';
+  
+  let html = '';
+  store.products.forEach(p => {
+    html += `
+      <div class="product-card">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="coming-soon">Coming Soon</div>
+        <h4>${p.name}</h4>
+        <button class="notify-btn" onclick="alert('Early bird discount interest saved for ${p.name}!')">Notify Me</button>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function goHome() {
+  document.getElementById('main-view').style.display = 'block';
+  document.getElementById('product-container').style.display = 'none';
+  document.getElementById('backBtn').style.display = 'none';
+  document.getElementById('store-title').innerText = '';
+}
+</script>
+</body>
+</html>
